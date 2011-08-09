@@ -14,6 +14,7 @@ from commonlib import print_console
 
 from util import quote_dos_path
 from Globals import ARGS
+from Globals import CONSOLE
 
 
 CYGWIN_URL=ARGS.BASE_URL+"Gitdev/cyghead.tar"
@@ -106,7 +107,7 @@ def install_cygwin():
 	cwd=os.getcwd()
 	os.chdir(ARGS.install_dir)
 
-	COMMAND=ARGS.install_dir+"/setup.exe"+" "+DEFAULT_OPTIONS+" -l " + quote_dos_path(ARGS.CYGPAK_DIR) + " -R " + quote_dos_path(ARGS.CYGWIN_DIR)+" -P subversion,wget,tcsh,python "
+	COMMAND=quote_dos_path(ARGS.install_dir)+"/setup.exe"+" "+DEFAULT_OPTIONS+" -l " + quote_dos_path(ARGS.CYGPAK_DIR) + " -R " + quote_dos_path(ARGS.CYGWIN_DIR)+" -P subversion,wget,tcsh,python "
 	print_console("Using command: "+COMMAND)
 
 	while (not os.path.lexists(ARGS.CYGWIN_DIR)):#this is for windows 7, keep nagging for auth

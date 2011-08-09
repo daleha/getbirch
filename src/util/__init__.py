@@ -10,6 +10,11 @@ from re import *
 #	return path
 
 
+def convert_pathsep(path):
+	path=path.replace("\\","/")
+	return path
+ 
+
 def quote_dos_path(path):
 
 	def quotePath(match):

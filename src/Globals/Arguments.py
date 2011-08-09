@@ -1,6 +1,6 @@
 import os
 import datetime
-from util import quote_dos_path
+from util import convert_pathsep
 
 
 class Arguments:
@@ -74,14 +74,14 @@ class Arguments:
 		if (not os.path.lexists(self.install_dir)):
 			os.mkdir(self.install_dir)
 		if "winxp-32" in self.platform:
-			self.install_dir=quote_dos_path(self.install_dir)
+			self.install_dir=convert_pathsep(self.install_dir)
 			self.CYGWIN_DIR=self.install_dir+"/cygwin/"
 			self.CYGPAK_DIR=self.install_dir+"/cygpak/"
 		
 	def set_log_dir(self,logdir):
 		
 		if "winxp-32" in self.platform:
-			self.log_dir=quote_dos_path(logdir)
+			self.log_dir=convert_pathsep(logdir)
 		else:
 			self.log_dir=logdir
 		
