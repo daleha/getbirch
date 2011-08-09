@@ -116,7 +116,7 @@ def install_cygwin():
 
 
 	print_console("Linking BIRCH into home directory")
-	cygwin_exec("cd /home && ln -s "+quote_dos_path(ARGS.install_dir)+"\"")
+	cygwin_exec("cd /home && ln -s "+quote_dos_path(ARGS.install_dir)+" /home/BIRCH")
 	cygwin_exec("cd && ln -s ../BIRCH")
 
 	if (os.path.lexists(ARGS.install_dir+"/cyghead") ):	
