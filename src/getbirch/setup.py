@@ -159,12 +159,15 @@ def extract_tarballs(windows=False):
 	
 	if (os.path.lexists(ARGS.install_dir + "/framework.tar.gz")):
 
-		if (windows):
+		if (windows and not ARGS.isGitDev):
 			cygwin_untar(ARGS.install_dir + "/framework.tar.gz","framework.tar.gz")
 		elif(not ARGS.isGitDev):
 			untar("framework.tar.gz")
 		elif (ARGS.isGitDev):
-			untar("framework.tar.gz",noroot=True)
+			if (windows):
+				cygwin_untar(ARGS.install_dir + "/framework.tar.gz","framework.tar.gz",noroot=True)
+			else:
+				untar("framework.tar.gz",noroot=True)
 			print_console("Restoring permission/time data.")
 			restoreMetaData(ARGS.install_dir)
 			print_console("Metadata restored.")

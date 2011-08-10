@@ -68,7 +68,7 @@ def set_max_members(new_max_members):
 	global max_members 
 	max_members= new_max_members
 
-def cygwin_untar(windows_path,filename, directory ="/home/BIRCH"):
+def cygwin_untar(windows_path,filename, directory ="/home/BIRCH",noroot=False):
 	global member_total
 	global member_count
 
@@ -77,6 +77,14 @@ def cygwin_untar(windows_path,filename, directory ="/home/BIRCH"):
 	print_console("Calculating tar info, this may take some time")
 	info=tarball.getmembers()
 	tarball.close()
+	if (noroot==True):
+		print_console("Removing root entry")
+		if (info[0].name.find("pax_global_header")>=0):
+			print_console("Trimming global header")
+			info.pop(0)
+		rootpath=info.pop(0)
+		print_console("Extracting to root directory \""+str(rootpath.name)+"\"")
+
 	member_total=len(info)
 	member_count=0
 	print_console("There are "+str(member_total)+ " members in "+filename)
