@@ -18,9 +18,9 @@ def convert_pathsep(path):
 def quote_dos_path(path):
 
 	def quotePath(match):
-		return "/\""+match.group(1)+"\"/"
+		return "/\""+match.group(1)+"\""
 
 	path=path.replace("\\","/")
-	cleanpath= sub ("/(.*?\s.*?)/",quotePath ,path)
+	cleanpath= sub ("/(.*?\s.*?[^/]*)",quotePath ,path)
 
 	return cleanpath
