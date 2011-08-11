@@ -1,0 +1,23 @@
+Deprecate exec_script, "quote_dos_path" should be replaced with the regex version used in java_bridge. There should also only be one version of thes function, which seems to need to reside in Arguments.py (remove the version in cygcfg)
+	-also, logging isn't being done correctly
+	-also, clean up logging crap that doesn't need to be there...
+	-relocating uncoupled functions form commonlib to util 
+
+Next, get other broken cygwin scripts to work (htmldoc, customdoc, etc)
+
+Also, get the cleanup to work correctly, and find a way to launch IE with documentation on windows...
+	idea: read registry to find default browser with cygwinreg, and launch from there. (make a tiny python wrapper called "browser" or something... similar to the java wrapper)
+
+-Rebaseall support for win7
+
+Biolegato needs to be taught how to talk to cygwin
+	-.blpropertie writer?
+
+Documentation!!!
+
+
+To do for tonight:
+	-Git netbeans documentation, collaberate with graham, rhuming.
+	-Work on regex issue for winbirch
+		-Create getbirch branches.	
+	
