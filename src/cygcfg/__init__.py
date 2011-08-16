@@ -77,13 +77,6 @@ def cygwin_untar(windows_path,filename, directory ="/home/BIRCH",noroot=False):
 	print_console("Calculating tar info, this may take some time")
 	info=tarball.getmembers()
 	tarball.close()
-	if (noroot==True):
-		print_console("Removing root entry")
-		if (info[0].name.find("pax_global_header")>=0):
-			print_console("Trimming global header")
-			info.pop(0)
-		rootpath=info.pop(0)
-		print_console("Extracting to root directory \""+str(rootpath.name)+"\"")
 
 	member_total=len(info)
 	member_count=0
@@ -96,9 +89,23 @@ def cygwin_untar(windows_path,filename, directory ="/home/BIRCH",noroot=False):
 	cygwin_exec(cmd,callbackfunc=untar_callback,verbosity=False)
 
 	print_console("Extracted "+str(member_count)+ " members from archive.")
+	if (noroot==True):
+		if (info[0].name.find("pax_global_header")>=0):
+			print_console("Trimming global header")
+			info.pop(0)
+		rootpath=info.pop(0)
+		print_console("Using "+rootpath.name+" as root tar dir.")
+
+		contents=os.listdir(rootpath.name)
+		for each in contents:
+			print_console("Moving "+each+" to rebased root path.")
+			shutil.move(rootpath.name+"/"+each,os.getcwd()+"/"+each)
+
+		shutil.rmtree(rootpath.name)
 
 	member_count=0
 	member_total=0
+
 	CONSOLE.setProgress(0)
 	CONSOLE.hideProgress()
 

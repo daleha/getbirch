@@ -191,13 +191,7 @@ def untar(file, path=".",noroot=False):
 		tarball = tarfile.open(file)
 		print_console("Calculating tar info, this may take some time")
 		info=tarball.getmembers()
-		if (noroot==True):
-			print_console("Removing root entry")
-			if (info[0].name.find("pax_global_header")>=0):
-				print_console("Trimming global header")
-				info.pop(0)
-			rootpath=info.pop(0)
-			print_console("Extracting to root directory \""+str(rootpath.name)+"\"")
+
 		total=len(info)
 		count=0
 		CONSOLE.setProgress(0)
@@ -212,6 +206,12 @@ def untar(file, path=".",noroot=False):
 			CONSOLE.setProgress(percent)
 
 		if (noroot==True):
+			if (info[0].name.find("pax_global_header")>=0):
+				print_console("Trimming global header")
+				info.pop(0)
+			rootpath=info.pop(0)
+			print_console("Using "+rootpath.name+" as root tar dir.")
+
 			contents=os.listdir(rootpath.name)
 			for each in contents:
 				print_console("Moving "+each+" to rebased root path.")
