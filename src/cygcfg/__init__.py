@@ -1,18 +1,21 @@
 
+#system defined libs
 import urllib2
 import os
 import tarfile
 import getpass
-
+import shutil
+from shutil import move
 from subprocess import Popen
 from subprocess import PIPE
-from shutil import move
+
 from commonlib import wget
 from commonlib import untar
 from commonlib import stream_exec
 from commonlib import print_console
 
 from util import quote_dos_path
+
 from Globals import ARGS
 from Globals import CONSOLE
 
@@ -132,7 +135,7 @@ def install_cygwin():
 
 	print_console("Linking BIRCH into home directory")
 	cygwin_exec("cd /home && ln -s "+quote_dos_path(ARGS.install_dir)+" /home/BIRCH")
-	cygwin_exec("cd && ln -s ../BIRCH")
+	cygwin_exec("cd && ln -s /home/BIRCH ")
 
 	if (os.path.lexists(ARGS.install_dir+"/cyghead") ):	
 		print_console("Setting up cygwin to work with windows java")
