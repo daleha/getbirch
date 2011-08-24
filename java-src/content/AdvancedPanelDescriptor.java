@@ -22,7 +22,7 @@ public class AdvancedPanelDescriptor extends WizardPanelDescriptor implements Ac
     static AdvancedPanelDescriptor instance;
     private String version;
     private ArrayList<String[]> tagList;
-    private final String URL="git://birchlabs.dyndns-server.com/framework.git";
+    private final String URL="git://git.cc.umanitoba.ca/birchdev.git";
     private JComboBox gitTagSelect;
     
     public AdvancedPanelDescriptor() {

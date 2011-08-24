@@ -6,15 +6,14 @@ from util import convert_pathsep
 class Arguments:
 	DOMAIN="http://birchlabs.dyndns-server.com"#The domain of the BIRCH gitweb server, note that there must be an apache alias to the directory containing the git repository, so that we can grab the head reference
 
-	HEAD_PROJECT="psgendb.git"
-	HEADREV_URL =DOMAIN+"/gitdir/"+HEAD_PROJECT+"/refs/heads/master"		
+	HEAD_PROJECT="birchdev.git"
 	BASE_URL="http://www.umanitoba.ca/faculties/afs/plant_science/psgendb/FTP/BIRCH/"
 	FRAMEWORK_URL = BASE_URL+"CURRENT/framework_$TYPE.tar.gz"
 	MINI_URL = BASE_URL+"minibirch/framework.mini_$TYPE.tar.gz"
 	BIN_URL = BASE_URL+"CURRENT/bin-$PLATFORM_$TYPE.tar.gz" 
 	VERSION_URL=BASE_URL+"CURRENT/VERSION"
-	GITDEV_URL="http://birchlabs.dyndns-server.com/gitweb/?"
-	GITDEV_HASHMAP={"p":"framework.git","a":"snapshot","h":"SHA","sf":"tgz"}
+	GITDEV_URL="http://git.cc.umanitoba.ca/git/?"
+	GITDEV_HASHMAP={"p":HEAD_PROJECT,"a":"snapshot","h":"#SHA","sf":"tgz"}
 	NEWEST_VERSION=None
 	
 	instance =None
