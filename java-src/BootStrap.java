@@ -9,7 +9,7 @@ import java.awt.SplashScreen;
 
 public class BootStrap {
 
-    final String MINMEM="350";
+    final String MINMEM="500";
 
     class StreamProxy extends Thread {
         final InputStream is;
