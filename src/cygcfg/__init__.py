@@ -143,9 +143,10 @@ def install_cygwin():
 		cygwin_exec("cd /home/BIRCH/cyghead && sh "+EGGFILE)
 		cygwin_exec("easy_install cygwinreg")
 
-		move(ARGS.install_dir+"/cyghead/java_bridge",ARGS.install_dir+"/cygwin/bin/java")
-		move(ARGS.install_dir+"/cyghead/browser_bridge",ARGS.install_dir+"/cygwin/bin/browser")
-		move(ARGS.install_dir+"/cyghead/apt-cyg",ARGS.install_dir+"/cygwin/bin/apt-cyg")
+		cygwin_exec("mv /home/BIRCH/cyghead/java_bridge /bin/java")
+		cygwin_exec("mv /home/BIRCH/cyghead/browser_bridge /bin/browser")
+		cygwin_exec("mv /home/BIRCH/cyghead/apt-get /bin/apt-get")
+
 		cygwin_exec("chmod +x /bin/java")
 		cygwin_exec("chmod +x /bin/browser")
 		cygwin_exec("chmod +x /bin/apt-cyg")
