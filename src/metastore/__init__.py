@@ -22,7 +22,7 @@ def restorePerms(line,basepath=os.getcwd()):
 	path=line[space1+space2+2:len(line)-1]
 	fullpath=basepath+"/"+path
 #	print "Restoring perms for file "+fullpath
-	if (os.path.lexists(fullpath)):
+	if (os.path.exists(fullpath)):
 		os.chmod(fullpath,mask)
 #		print "permissions restored"
 	else:
@@ -32,7 +32,7 @@ def restorePerms(line,basepath=os.getcwd()):
 
 def restoreTime(file,atime,mtime):
 
-	if (os.path.lexists(file)):
+	if (os.path.exists(file)):
 #		print "restoring time for file "+file
 		os.utime(file,(atime,mtime))
 
