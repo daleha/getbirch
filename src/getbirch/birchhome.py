@@ -13,7 +13,7 @@ from Globals import print_console
 
 
 USER=os.environ.get("USER")
-REPLACEKEY="/home/psgendb"
+REPLACEKEY="/home/psgendb/BIRCHDEV"
 
 common_files=['$BIRCH/admin/cshrc.source','$BIRCH/admin/profile.source','$BIRCH/admin/add_to_cshrc','$BIRCH/admin/add_to_login','$BIRCH/admin/add_to_profile','$BIRCH/admin/newuser','$BIRCH/dat/fasta/fastgbs','$BIRCH/dat/fasta/*.fil','$BIRCH/install-birch/htmldir.param','$BIRCH/dat/fasta/fastgbs','$BIRCH/dat/XLandscape/XLand','$BIRCH/admin.uninstall/cshrc.source','$BIRCH/admin.uninstall/profile.source']
 birch_only_files=['$BIRCH/java/ArrayNorm/ArrayNorm.lax','$BIRCH/java/Bluejay/Bluejay.lax','$BIRCH/java/Jalview/Jalview.lax','$BIRCH/java/genographer/genograph.cfg','$BIRCH/pkg/NCBI/.ncbirc',"$BIRCH/admin/launchers/birch.desktop"]
