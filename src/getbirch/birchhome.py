@@ -13,6 +13,7 @@ from Globals import print_console
 
 
 USER=os.environ.get("USER")
+REPLACEKEY="/home/psgendb"
 
 common_files=['$BIRCH/admin/cshrc.source','$BIRCH/admin/profile.source','$BIRCH/admin/add_to_cshrc','$BIRCH/admin/add_to_login','$BIRCH/admin/add_to_profile','$BIRCH/admin/newuser','$BIRCH/dat/fasta/fastgbs','$BIRCH/dat/fasta/*.fil','$BIRCH/install-birch/htmldir.param','$BIRCH/dat/fasta/fastgbs','$BIRCH/dat/XLandscape/XLand','$BIRCH/admin.uninstall/cshrc.source','$BIRCH/admin.uninstall/profile.source']
 birch_only_files=['$BIRCH/java/ArrayNorm/ArrayNorm.lax','$BIRCH/java/Bluejay/Bluejay.lax','$BIRCH/java/Jalview/Jalview.lax','$BIRCH/java/genographer/genograph.cfg','$BIRCH/pkg/NCBI/.ncbirc',"$BIRCH/admin/launchers/birch.desktop"]
@@ -78,7 +79,7 @@ def set_birch_home(files,home):
 		replace_all(each, "$BIRCH ",home)#note that the space is necessary
 
 		#replace /home/psgendb tags with home
-		replace_all(each,"/home/psgendb",home)
+		replace_all(each,REPLACEKEY,home)
 
 	else:
 		print_console("The path "+each+" does not exist")
@@ -97,7 +98,7 @@ def replace_all_ldirs(home):
         for fname in files:
             if (fname=="ldir.param"):
                 fpath = os.path.join(dname, fname)
-                replace_all(fpath,"/home/psgendb",home)
+                replace_all(fpath,REPLACEKEY,home)
         
 """
 Sets up permissions
