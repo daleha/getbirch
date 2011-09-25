@@ -46,7 +46,7 @@ def run_birchhome(install_dir,homepath):
 	
 	print_label("Birchhome")
 	print_console("Running birchhome")
-#	birchhome.main(install_dir,homepath)
+#	birchhome.main(install_dir,homepath)# need to update this once default install is using BIRCHDEV
 	stream_exec(ARGS.install_dir+"/install-birch/birchhome.sh",ARGS.install_dir+"/install-birch")
 	
 def set_platform(exec_func=stream_exec,install_dir=ARGS.install_dir):

@@ -13,11 +13,4 @@ Also, get the cleanup to work correctly, and find a way to launch IE with docume
 Biolegato needs to be taught how to talk to cygwin
 	-.blpropertie writer?
 
-Documentation!!!
-
-
-To do for tonight:
-	-Git netbeans documentation, collaberate with graham, rhuming.
-	-Work on regex issue for winbirch
-		-Create getbirch branches.	
-	
+Birchhome.py needs to be called once the default install switches to use BIRCHDEV
