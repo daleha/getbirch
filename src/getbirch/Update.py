@@ -1,17 +1,24 @@
 
+#system includes
 import os 
 import tarfile
 import datetime
 import traceback
 import shutil
 
+#lib includes
 import commonlib
 from commonlib import print_label
 from commonlib import stream_exec
-from install import *
+
+#var includes
 from Globals import ARGS
 from Globals import print_console
 
+#core includes
+from install import main_install
+
+#jython includes
 import javax.swing.JOptionPane as JOptionPane
 import javax.swing.JFileChooser as JFileChooser
 
@@ -125,24 +132,8 @@ def update_birch():
 		
 		if (ARGS.make_backup):
 			compress_old_birch()
-			
-		run_nobirch()
-		purge_old_birch()
-		commonlib.get_framework()
-		commonlib.get_binaries()
-		commonlib.extract_tarballs()
-#		commonlib.copy_jython()
-	
-	
-		print_console("Archives extracted.")
-		#makeProperties(ARGS.install_dir)
-		run_birchhome(ARGS.install_dir+"/",ARGS.install_dir+"/")
-		set_platform()	
-		#makeParamFile(ARGS.install_dir) #see if this can be omitted, its a total hack
-		run_customdoc(stream_exec,"java -jar "+ARGS.jython_path,ARGS.install_dir)
-		run_htmldoc(stream_exec,"java -jar "+ARGS.jython_path,ARGS.install_dir)	
-		run_newuser()
 
+					
 		
 		print_console("Update complete")
 		ARGS.returncode=commonlib.verify_install()

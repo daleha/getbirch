@@ -15,20 +15,13 @@ import subprocess
 import tarfile
 from subprocess import *
 
-from install import *
-from cygcfg import *
-from commonlib import *
-from setup import *
-import Globals
-
-import nobirch
-import birchhome
-
 from Globals import CONSOLE
 from Globals import ARGS
 from Globals import fetch_git_url
+
+#core importes
+from install import main_install
 from Update import update_birch
-from util import quote_dos_path
 
 import javax.swing.JOptionPane as JOptionPane
 
@@ -58,72 +51,6 @@ def disc_prepare():
 
 
 	
-
-def install(fetch=True):
-	print_label('Starting the intall process')	
-	print_console("The current version of BIRCH is "+ARGS.NEWEST_VERSION)
-	print_console("Using: "+ARGS.install_dir+" as installation directory")
-	
-	if "winxp-32" in ARGS.platform:
-
-		quotedBasePath=quote_dos_path(ARGS.install_dir).replace("\"","\\\"")+"\\\""
-		print_console("Retrieving unix compatibility layer")
-		get_cygwin_installer()
-		ARGS.jython_path=quote_dos_path(ARGS.jython_path.replace("\\","/"))
-		
-		install_cygwin()
-		if (fetch):
-			print_label('Fetching archives')
-			get_framework()
-			get_binaries()
-
-		extract_tarballs(windows=True)
-
-		print_console("Making birch local")
-		cygwin_exec("mv /home/BIRCH/local-generic /home/BIRCH/local")
-		print_console("Making birch properties")
-		makeProperties("/home/BIRCH")
-		print_console("Running birch home")
-		#run_birchhome(ARGS.install_dir+"/","/home/BIRCH")
-
-		command="cd  /home/BIRCH/install-birch/ && ./birchhome.sh"
-		cygwin_exec(command)
-		set_platform(exec_func=cygwin_exec,install_dir="/home/BIRCH")
-		makeParamFile("/home/BIRCH")
-
-		#these seem broken, everything else is fine
-		run_customdoc(cygwin_exec,"/usr/bin/python","/home/BIRCH")
-		run_htmldoc(cygwin_exec,"/usr/bin/python","/home/BIRCH")
-		cygwin_exec("/home/BIRCH/admin/newuser")
-		#need a way to get biolegato to work... python wrapper for java calling full executable?
-		
-	else:
-		if (fetch):
-			print_label('Fetching archives')
-			get_framework()
-			get_binaries()
-
-
-		extract_tarballs()
-	
-		print_console("Archives extracted.")
-		run_nobirch()
-		move_local()	
-		makeProperties(ARGS.install_dir)
-		run_birchhome(ARGS.install_dir+"/",ARGS.install_dir+"/")
-		set_platform()	#simply calling existing setplatform
-		makeParamFile(ARGS.install_dir) #see if this can be omitted, its a total hack
-		run_customdoc(stream_exec,"java -jar "+ARGS.jython_path,ARGS.install_dir)
-		run_htmldoc(stream_exec,"java -jar "+ARGS.jython_path,ARGS.install_dir)	
-		run_newuser()
-	
-	#There is a module to do this anyways (down)
-	#shutil.copy(ARGS.jython_path, ARGS.install_dir+"/java/jython.jar")
-		
-	verify_install()
-		
-		
-
 
 
 def run_main(cwd):
@@ -158,7 +85,7 @@ def run_main(cwd):
 			disc_prepare()
 			fetch = False
 	
-		install(fetch)
+		main_install(fetch)
 
 	else:
 		update_birch()

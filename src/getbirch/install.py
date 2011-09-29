@@ -1,20 +1,104 @@
-
-
+#system includes
 import getpass
 import os
-import birchhome
-import nobirch
-import commonlib
 from shutil import move
+from subprocess import Popen
+from subprocess import PIPE
+
+
+
+#lib includes
 from commonlib import stream_exec 
 from commonlib import print_label 
+import commonlib
+
+#var includes
+import Globals
 from Globals import CONSOLE
 from Globals import ARGS
 from Globals import print_console
 
-from subprocess import Popen
-from subprocess import PIPE
+#install includes
+import nobirch
+import birchhome
+from install import *
+from cygcfg import *
+from commonlib import *
+from setup import *
 from cygcfg import cygwin_exec
+from util import quote_dos_path
+
+
+
+
+def main_install(fetch=True):
+
+	print_label('Starting the intall process')	
+	print_console("The current version of BIRCH is "+ARGS.NEWEST_VERSION)
+	print_console("Using: "+ARGS.install_dir+" as installation directory")
+	
+	if "winxp-32" in ARGS.platform:
+
+		quotedBasePath=quote_dos_path(ARGS.install_dir).replace("\"","\\\"")+"\\\""
+		print_console("Retrieving unix compatibility layer")
+		get_cygwin_installer()
+		ARGS.jython_path=quote_dos_path(ARGS.jython_path.replace("\\","/"))
+		
+		install_cygwin()
+		if (fetch):
+			print_label('Fetching archives')
+			get_framework()
+			get_binaries()
+
+		extract_tarballs(windows=True)
+
+		print_console("Making birch local")
+		cygwin_exec("mv /home/BIRCH/local-generic /home/BIRCH/local")
+		print_console("Making birch properties")
+		makeProperties("/home/BIRCH")
+		print_console("Running birch home")
+		#run_birchhome(ARGS.install_dir+"/","/home/BIRCH")
+
+		command="cd  /home/BIRCH/install-birch/ && ./birchhome.sh"
+		cygwin_exec(command)
+		set_platform(exec_func=cygwin_exec,install_dir="/home/BIRCH")
+		makeParamFile("/home/BIRCH")
+
+		#these seem broken, everything else is fine
+		run_customdoc(cygwin_exec,"/usr/bin/python","/home/BIRCH")
+		run_htmldoc(cygwin_exec,"/usr/bin/python","/home/BIRCH")
+		cygwin_exec("/home/BIRCH/admin/newuser")
+		#need a way to get biolegato to work... python wrapper for java calling full executable?
+		
+	else:
+		if (fetch):
+			print_label('Fetching archives')
+			get_framework()
+			get_binaries()
+
+
+		extract_tarballs()
+	
+		print_console("Archives extracted.")
+		run_nobirch()
+		move_local()	
+		makeProperties(ARGS.install_dir)
+		run_birchhome(ARGS.install_dir+"/",ARGS.install_dir+"/")
+		set_platform()	#simply calling existing setplatform
+		makeParamFile(ARGS.install_dir) #see if this can be omitted, its a total hack
+		run_customdoc(stream_exec,"java -jar "+ARGS.jython_path,ARGS.install_dir)
+		run_htmldoc(stream_exec,"java -jar "+ARGS.jython_path,ARGS.install_dir)	
+		run_newuser()
+	
+	#There is a module to do this anyways (down)
+	#shutil.copy(ARGS.jython_path, ARGS.install_dir+"/java/jython.jar")
+		
+	verify_install()
+		
+		
+
+
+
 
 def run_nobirch():
 
