@@ -28,6 +28,11 @@ from Update import update_birch
 #UI imports
 #lib imports
 from Globals import print_console
+from commonlib import print_label 
+from commonlib import shutdown
+from setup import check_depends
+from setup import clobber_check
+from install import showCustomDoc
 
 #jython imports
 import javax.swing.JOptionPane as JOptionPane
