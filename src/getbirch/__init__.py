@@ -15,14 +15,21 @@ import subprocess
 import tarfile
 from subprocess import *
 
+
+#var imports
 from Globals import CONSOLE
 from Globals import ARGS
-from Globals import fetch_git_url
 
-#core importes
+#core imports
 from install import main_install
 from Update import update_birch
 
+
+#UI imports
+#lib imports
+from Globals import print_console
+
+#jython imports
 import javax.swing.JOptionPane as JOptionPane
 
 

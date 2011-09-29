@@ -5,18 +5,16 @@ from shutil import move
 from subprocess import Popen
 from subprocess import PIPE
 
-
-
 #lib includes
 from commonlib import stream_exec 
 from commonlib import print_label 
+from Globals import print_console
 import commonlib
 
 #var includes
 import Globals
 from Globals import CONSOLE
 from Globals import ARGS
-from Globals import print_console
 
 #install includes
 import nobirch

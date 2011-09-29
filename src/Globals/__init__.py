@@ -1,15 +1,18 @@
 
-#java imports
+#jython imports
 import OutputConsole
 import JarHandler.Fetcher as Fetcher
-#custom python
-from platformdetect import PlatformDetector
 
+#var imports
 from Arguments import Arguments
 
+#system imports
 import os
 import urllib
 import urllib2
+
+#business logic imports -- REFACTOR
+from platformdetect import PlatformDetector
 
 
 
@@ -33,24 +36,6 @@ def get_version():
 		exit()
 
 	return ARGS.NEWEST_VERSION
-
-
-def fetch_git_url():
-
-        try:
-		print_console("Attempting to get SHA from "+ARGS.HEADREV_URL)
-                head=urllib2.urlopen(ARGS.HEADREV_URL)
-		head=head.read().strip()
-		print_console("Revieved "+head+" as SHA")
-                ARGS.HEAD_SHA=head
-
-
-        except urllib2.HTTPError:
-                print_console("Could not retrieve head revision. Message:\n"+urllib2.HTTPError.message)
-        except:
-                print_console("Could not detect head revision of BIRCH, exiting...")
-        print_console("Using SHA: "+head+" for developer branch")
-        return Arguments.DOMAIN+"/gitweb/?p=psgendb.git;a=snapshot;h="+head+";sf=tgz"
 
 	
 def detect_platform(temp_dir):
