@@ -184,7 +184,7 @@ def print_console(line):
 	print(line)
 	
 
-def untar(file, path=".",noroot=False):
+def untar(file, path=".",noroot=False,exclude=list()):
 		"""Extracts the tarfile given by file to current working directory by default, or path"""
 
 
@@ -197,13 +197,15 @@ def untar(file, path=".",noroot=False):
 		CONSOLE.setProgress(0)
 		print_console("Beginning the extraction process")
 		for each in info:
-				
-			count=count+1
-			percent=int((float(count)/total)*100)	
-			item=list()
-			item.append(each)
-			tarball.extractall(members=item)
-			CONSOLE.setProgress(percent)
+			if (not each.name in exclude):
+				count=count+1
+				percent=int((float(count)/total)*100)	
+				item=list()
+				item.append(each)
+				tarball.extractall(members=item)
+				CONSOLE.setProgress(percent)
+			else:
+				print_console("Excluded member "+each.name)
 
 		if (noroot==True):
 			if (info[0].name.find("pax_global_header")>=0):

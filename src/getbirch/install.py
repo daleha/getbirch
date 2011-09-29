@@ -79,8 +79,10 @@ def main_install(fetch=True):
 	
 		print_console("Archives extracted.")
 		run_nobirch()
-		move_local()	
-		makeProperties(ARGS.install_dir)
+		if (not ARGS.is_update):
+			move_local()	
+			makeProperties(ARGS.install_dir)
+
 		run_birchhome(ARGS.install_dir+"/",ARGS.install_dir+"/")
 		set_platform()	#simply calling existing setplatform
 		makeParamFile(ARGS.install_dir) #see if this can be omitted, its a total hack

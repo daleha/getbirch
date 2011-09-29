@@ -167,7 +167,10 @@ def extract_tarballs(windows=False):
 			if (windows):
 				cygwin_untar(ARGS.install_dir + "/framework.tar.gz","framework.tar.gz",noroot=True)
 			else:
-				untar("framework.tar.gz",noroot=True)
+				excludelist=list()
+				if (ARGS.is_update):
+					exclude.append("local")
+				untar("framework.tar.gz",path=".",noroot=True,exclude=excludelist)
 			print_console("Restoring permission/time data.")
 			restoreMetaData(ARGS.install_dir)
 			print_console("Metadata restored.")

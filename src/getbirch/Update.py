@@ -17,6 +17,7 @@ from Globals import print_console
 
 #core includes
 from install import main_install
+from install import run_nobirch
 
 #jython includes
 import javax.swing.JOptionPane as JOptionPane
@@ -133,10 +134,12 @@ def update_birch():
 		if (ARGS.make_backup):
 			compress_old_birch()
 
-					
+		run_nobirch()
+		purge_old_birch()				
+		main_install()
+		
 		
 		print_console("Update complete")
-		ARGS.returncode=commonlib.verify_install()
 		
 		
 		
