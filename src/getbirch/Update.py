@@ -23,7 +23,7 @@ from install import run_nobirch
 import javax.swing.JOptionPane as JOptionPane
 import javax.swing.JFileChooser as JFileChooser
 
-birch_files=['local-generic', 'labace', 'GenPept', 'script', 'install-birch', 'bin-linux-intel','bin-linux-x86_64','bin-solaris-sparc','bin-solaris-amd64','bin-osx-x86_64', 'dat', 'admin.uninstall', 'doc', 'pkg', 'java', 'public_html', 'manl', 'GenBank', 'birchconfig.homedir.target.html', 'tutorials', 'lib-linux-intel','lib-linux-x86_64','lib-solaris-sparc','lib-solaris-amd64','lib-osx-x86_64', 'admin']
+birch_files=['local-generic', 'labace', 'script', 'install-birch', 'bin-linux-intel','bin-linux-x86_64','bin-solaris-sparc','bin-solaris-amd64','bin-osx-x86_64', 'dat', 'admin.uninstall', 'doc', 'pkg', 'java', 'public_html', 'manl', 'birchconfig.homedir.target.html', 'tutorials', 'lib-linux-intel','lib-linux-x86_64','lib-solaris-sparc','lib-solaris-amd64','lib-osx-x86_64', 'admin']
 
 
 def compress_old_birch():
