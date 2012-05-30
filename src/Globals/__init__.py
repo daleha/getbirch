@@ -98,6 +98,6 @@ def set_selected_tag(selected_tag):
 	ARGS.selectedTag=selected_tag
 
 
-from commonlib import print_console
-from commonlib import untar
+from util import print_console
+from util import untar
 

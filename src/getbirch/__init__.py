@@ -20,6 +20,7 @@ from subprocess import *
 from Globals import CONSOLE
 from Globals import ARGS
 
+#can't import these anymore
 #core imports
 from install import main_install
 from Update import update_birch
@@ -32,6 +33,11 @@ from commonlib import print_label
 from commonlib import shutdown
 from setup import check_depends
 from setup import clobber_check
+from setup import get_framework
+from setup import get_binaries
+			
+
+
 from install import showCustomDoc
 
 #jython imports
@@ -92,16 +98,25 @@ def run_main(cwd):
 		if (os.path.lexists(ARGS.install_dir)):
 			os.chdir(ARGS.install_dir)
 		
-		fetch = True
+        fetch = True
 		if (ARGS.disc_install):
 			disc_prepare()
 			fetch = False
-	
-		main_install(fetch)
+
+        if (fetch):
+			print_label('Fetching archives')
+			get_framework()
+			get_binaries()
+
+
+#call install
+		#main_install()
 
 	else:
-		update_birch()
+#call update
+		#update_birch()
 		
+
 
 	
 	

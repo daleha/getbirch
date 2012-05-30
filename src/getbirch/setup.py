@@ -3,9 +3,9 @@ import os,shutil,urllib
 from Globals import ARGS
 from Globals import CONSOLE
 from Globals import print_console
-from commonlib import wget
-from commonlib import untar
-from metastore import restoreMetaData
+from util import wget
+from util import untar
+#from metastore import restoreMetaData
 """
 Verify that the dependancies are present
 """
@@ -171,9 +171,9 @@ def extract_tarballs(windows=False):
 				if (ARGS.is_update):
 					exclude.append("local")
 				untar("framework.tar.gz",path=".",noroot=True,exclude=excludelist)
-			print_console("Restoring permission/time data.")
-			restoreMetaData(ARGS.install_dir)
-			print_console("Metadata restored.")
+			#print_console("Restoring permission/time data.")
+			#restoreMetaData(ARGS.install_dir)
+			#print_console("Metadata restored.")
 	else:
 		print_console( "The required file framework.tar.gz was not found")
 		return
