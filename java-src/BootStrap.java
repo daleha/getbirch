@@ -36,16 +36,16 @@ public class BootStrap {
 
     private String getBootString(){
 
-	final String reloadCmd = "java -Xmx"+MINMEM+"m -Xmx"+MINMEM+"m -jar ";
-	String path = JarUtil.getPath() + "getbirch.jar";
-	String args = " -nobs";
+        final String reloadCmd = "java -Xmx"+MINMEM+"m -Xmx"+MINMEM+"m -jar ";
+        String path = JarUtil.getPath() + "getbirch.jar";
+        String args = " -nobs";
 
-	// fix windows paths
-	if (path.indexOf("\\") >= 0) {
-		path = "\"" + path + "\"";
-	}
+        // fix windows paths
+        if (path.indexOf("\\") >= 0) {
+            path = "\"" + path + "\"";
+        }
 
-	return reloadCmd + path + args;
+        return reloadCmd + path + args;
 
 
     }

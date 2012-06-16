@@ -30,8 +30,6 @@ import org.python.core.PyInteger;
 import org.python.util.PythonInterpreter;
 
 public class Main {
-	private static String tempDir = JarUtil.getPath() + "/getbirch_temp";
-	private static String jythonPath = tempDir + "/jython-full.jar";
 	private static String platform;
 	private static String version;
 	private static int MAX_RECURSION_DEPTH = 10000000;
@@ -50,15 +48,13 @@ public class Main {
 		ArrayList<String> binaries;
 
 		interp = new PythonInterpreter();
-		isDiscInstall = is_disc_install();
+//		isDiscInstall = is_disc_install();
 
 //		memCheck();
 
-		if (!isDiscInstall)
-			extractLib();
 
-		platform = detect_platform();
-		version = detect_version();
+//		platform = detect_platform();
+//		version = detect_version();
 
 		Wizard wizard = new Wizard();
 		wizard.getDialog().setTitle("Getbirch BIRCH Install Wizard");
@@ -74,26 +70,25 @@ public class Main {
 		WizardPanelDescriptor descriptor2 = new AdvancedPanelDescriptor();
 		wizard.registerWizardPanel(AdvancedPanelDescriptor.IDENTIFIER,
 				descriptor2);
-		((AdvancedPanelDescriptor) descriptor2).setPlatform(platform);
-		((AdvancedPanelDescriptor) descriptor2).setVersion(version);
+		//((AdvancedPanelDescriptor) descriptor2).setPlatform(platform);
+		//((AdvancedPanelDescriptor) descriptor2).setVersion(version);
 
 		wizard.setCurrentPanel(StartPanelDescriptor.IDENTIFIER);
-
-		if (isDiscInstall) {
+/*		if (isDiscInstall) {
 			((InstallTypePanel) descriptor1.getPanelComponent())
 					.setDiscInstall();
 			((AdvancedPanelDescriptor) descriptor2).setDiscInstall();
 		}
+        */
 
 		int ret = wizard.showModalDialog();
 
+/*
 		System.out
 				.println("Dialog return code is (0=Finish,1=Cancel,2=Error): "
 						+ ret);
 
 		if (ret == 1) {
-			if (!isDiscInstall)
-				JarUtil.cleanUp(tempDir);
 			System.exit(0);
 		}
 
@@ -124,25 +119,20 @@ public class Main {
 		boolean devel = ((AdvancedPanel) descriptor2.getPanelComponent())
 				.isDevelopment();
 		
-		boolean gitDevel = ((AdvancedPanel) descriptor2.getPanelComponent())
-		.isGitInstall();
 		
 		if (install)
 			adminEmail=((StartPanel) descriptor.getPanelComponent()).getEmail();
 		else
 			adminEmail="";
 		
-		selectedTag = gitDevel?((AdvancedPanelDescriptor)descriptor2).getSelectedTag():null;
 		
-		startPhase1(install, installDir, logDir, frameType, binaries, devel,adminEmail,gitDevel,selectedTag);
-		JarUtil.cleanUp(tempDir);
+		startPhase1(install, installDir, logDir, frameType, binaries, devel,adminEmail);
 
 		System.exit(0);
-
+*/
 	}
-
+/*
 	private static boolean is_disc_install() {
-		final String LIB = "getbirch_temp";
 		final String BIN = "binaries.tar.gz";
 		final String FRAME = "framework.tar.gz";
 		boolean isDisc;
@@ -176,7 +166,9 @@ public class Main {
 		return isDisc;
 
 	}
+    */
 
+/*
 	private static String detect_platform() {
 		String platform;
 		String path;
@@ -197,7 +189,8 @@ public class Main {
 		return platform;
 
 	}
-
+    */
+/*
 	private static String detect_version() {
 		String version;
 
@@ -210,17 +203,17 @@ public class Main {
 		return version;
 
 	}
-
+*/
 	private static void startPhase1(
 			boolean install, String installDir,
 			String logDir, String frameType, ArrayList<String> binaries,
-			boolean devel, String adminEmail,
-			boolean gitDevel, String[] selectedTag
+			boolean devel, String adminEmail
 			) 
 	{
-		//add code to send gitDevel/selectedTag across, then handle in python
 		PythonInterpreter interp = new PythonInterpreter();
 
+
+    /*
 		// set local parameters
 
 		interp.exec("import getbirch");
@@ -245,12 +238,6 @@ public class Main {
 
 		}
 
-		if (gitDevel)
-		{
-			PyString[] selTags={new PyString(selectedTag[0]),new PyString(selectedTag[1])};
-			interp.set("selected_tag", new PyTuple(selTags));
-			interp.exec("Globals.set_selected_tag(selected_tag)");
-		}
 
 		if (!install) {
 			interp.exec("Globals.set_update()");
@@ -282,48 +269,9 @@ public class Main {
 
 		interp.exec("getbirch.main(installDir)");
 
-	}
+    */
+}
 
-	public static void extractLib() {
-		Fetcher fetcher;
-
-		File temp;
-		File jython;
-		Runtime rt;
-
-		fetcher = new Fetcher();
-
-		temp = new File(tempDir);
-		jython = new File(jythonPath);
-
-		if (!temp.exists() || !jython.exists()) {
-
-			if (!temp.exists())
-				temp.mkdir();
-			fetcher.getResource("lib/jython-full.jar", tempDir
-					+ "/jython-full.jar");
-
-			rt = java.lang.Runtime.getRuntime();
-
-			jythonPath = JarUtil.getPath() + "getbirch.jar";
-			// fix windows paths
-			if (jythonPath.indexOf("\\") >= 0) {
-				// basePath=basePath.replace("\\","\"/\"")+"\"";
-				jythonPath = "\"" + jythonPath + "\"";
-			}
-
-			try {
-				rt.exec("java -jar " + jythonPath);
-				// rt.wait();
-
-				System.exit(0);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-	}
 
 	public static void runCommand(String command) {
 		Runtime rt;

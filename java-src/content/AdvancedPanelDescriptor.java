@@ -4,12 +4,10 @@ package content;
 
 import java.awt.*;
 import java.awt.event.*;
-import gitutil.GitFunctions;
 import java.util.*;
 
 import javax.swing.*;
 
-import org.eclipse.jgit.lib.Ref;
 
 import wizard.*;
 
@@ -22,8 +20,6 @@ public class AdvancedPanelDescriptor extends WizardPanelDescriptor implements Ac
     static AdvancedPanelDescriptor instance;
     private String version;
     private ArrayList<String[]> tagList;
-    private final String URL="git://git.cc.umanitoba.ca/birchdev.git";
-    private JComboBox gitTagSelect;
     
     public AdvancedPanelDescriptor() {
         
@@ -94,44 +90,11 @@ public class AdvancedPanelDescriptor extends WizardPanelDescriptor implements Ac
 			panel2.browseForLog();
 		}else if (e.getSource() instanceof JRadioButton){
 
-			gitTagSelect= panel2.getGitComboBox();
-			if (e.getSource()== panel2.getGitButton())
-			{	
-				gitTagSelect.setEnabled(true);
-				if (gitTagSelect.isEnabled())
-					updateGitTagList();
-			}else
-			{
-				gitTagSelect.setEnabled(false);
-			}
 		}
         
     }
     
-    public void updateGitTagList ()
-    {
-    	tagList=GitFunctions.listRepo(URL);
-    	gitTagSelect.removeAllItems();
-		
-		for (Iterator<String[]> i = tagList.iterator(); i.hasNext(); )
-		{
-			String[] curr= i.next();
-			String str=curr[0]+":"+curr[1];
-			gitTagSelect.addItem(str);
-			if (curr[0].equals("HEAD"))
-				gitTagSelect.setSelectedItem(str);
-		}	
-    	
-    }
-    
-    public String[] getSelectedTag()
-    {
-    	String[] selectedTag;
-    	int index = gitTagSelect.getSelectedIndex();
-    	selectedTag=tagList.get(index);	
-    	return selectedTag;
-    }
-    
+  
   
 
             

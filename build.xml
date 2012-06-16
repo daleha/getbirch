@@ -15,9 +15,16 @@
   <property name="resources.dir" location="resources"/>
   <property name="build.dir" location="build"/>
   <property name="lib.dir" location="lib"/>
+  <property name="pythonLib.dir" location="lib/Lib"/>
+  <property name="jythonOrg.dir" location="lib/org"/>
+  <property name="jythonCom.dir" location="lib/com"/>
+  <property name="jythonJline.dir" location="lib/jline"/>
+  <property name="jythonJni.dir" location="lib/jni"/>
+  <property name="jythonJnr.dir" location="lib/jnr"/>
 
   <path id="classpath">
-    <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    <!--<fileset dir="${lib.dir}" includes="**/*.jar"/>-->
+    <fileset dir="${lib.dir}" includes="*"/>
   </path>
 
   <target name="clean">
@@ -53,10 +60,21 @@
   	      <fileset dir="${resources.dir}"/>
   	    </copy>
   	
-    <!-- Add the libs -->
-    <copy todir="${build.dir}/lib">
-      <fileset dir="${lib.dir}"/>
-    </copy>
+    <!-- Add the jython libs -->
+    <copy todir="${build.dir}/Lib">
+      <fileset dir="${pythonLib.dir}" />
+     </copy>
+    <copy todir="${build.dir}/org">
+      <fileset dir="${jythonOrg.dir}"/>
+     </copy>
+    <copy todir="${build.dir}/com">
+      <fileset dir="${jythonCom.dir}"/>
+     </copy>
+
+
+
+
+
     <!-- Compile OneJar -->
     <javac srcdir="${onejar-src.dir}" destdir="${build.dir}" classpathref="classpath"/>
     <!-- Copy the OneJar license file -->
@@ -76,7 +94,7 @@
     <jar destfile="${jar.name}" basedir="${build.dir}">
       <manifest>
 	<attribute name="Main-Class" value="com.simontuffs.onejar.Boot" />
-	<attribute name="Class-Path" value="getbirch_temp/jython-full.jar" />
+	<!--<attribute name="Class-Path" value="getbirch_temp/jython-full.jar" />-->
     <attribute name="SplashScreen-Image" value="content/getbirchsplash.png" />
       	
       </manifest>
