@@ -7,7 +7,6 @@ import shutil
 import os
 import sys
 
-import traceback
 from log import *
 
 from Globals import CONSOLE
@@ -131,11 +130,5 @@ def quote_dos_path(path):
 
 def shutdown():
 	info("Shutting down")
-#	try:	
-#		cleanup()
-#	except Exception, err:
-#		print_console(err.message)
-#		err=traceback.format_exc()
-#		print_console(err)
 	CONSOLE.shutdown()
 	
