@@ -9,7 +9,7 @@
 
   <!-- Below here you dont' need to change for simple projects -->
   <property name="java-src.dir" location="java-src"/> 
-  <property name="src.dir" location="src"/> 
+  <property name="src.dir" location="python-src"/> 
   <property name="onejar-src.dir" location="onejar-src"/>
   <property name="java-build.dir" location="java-build"/>
   <property name="resources.dir" location="resources"/>

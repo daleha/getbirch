@@ -41,8 +41,6 @@ public class AdvancedPanel extends JPanel {
 	private JCheckBox miniBirchCheckBox = null;
 	private JRadioButton developmentRadioButton = null;
 	private JRadioButton releaseRadioButton = null;
-	private JRadioButton gitRadioButton = null;
-	private JComboBox gitTagSelect = null;
 	private JLabel jLabel2 = null;
 	private JCheckBox solarisSparcCheckBox = null;
 	private JCheckBox solaris64CheckBox = null;
@@ -90,15 +88,9 @@ public class AdvancedPanel extends JPanel {
     
     public void setActionListners(ActionListener al){
     	browseButton.addActionListener(al);
-    	gitRadioButton.addActionListener(al);
-	developmentRadioButton.addActionListener(al);
-	releaseRadioButton.addActionListener(al);
+        developmentRadioButton.addActionListener(al);
+        releaseRadioButton.addActionListener(al);
 
-    }
-
-    public JRadioButton getGitButton()
-    {    
-	return gitRadioButton;
     }
     
     public void setPlatform(String platform){
@@ -185,12 +177,7 @@ public class AdvancedPanel extends JPanel {
     	
     	return developmentRadioButton.isSelected();
     }
-    
-    public boolean isGitInstall()
-    {
-    	return gitRadioButton.isSelected();
-    }
-    
+       
     /**
 	 * This method initializes jTextField	
 	 * 	
@@ -335,11 +322,8 @@ public class AdvancedPanel extends JPanel {
 			jContentPane.add(getJRadioButton(), null);
 			jContentPane.add(jLabel5, null);
 			jContentPane.add(jLabel6, null);
-			jContentPane.add(getGitRadioButton(), null);
-			jContentPane.add(getGitComboBox(), null);
 			group.add(releaseRadioButton);
 			group.add(developmentRadioButton);
-			group.add(gitRadioButton);
 		}
 		return jContentPane;
 	}
@@ -550,34 +534,6 @@ public class AdvancedPanel extends JPanel {
 		return releaseRadioButton;
 	}
 
-
-	/**
-	 * This method initializes jRadioButton	
-	 * 	
-	 * @return javax.swing.JRadioButton	
-	 */
-	private JRadioButton getGitRadioButton() {
-		if (gitRadioButton == null) {
-			gitRadioButton = new JRadioButton("Git (bleeding edge)");
-			gitRadioButton.setBounds(new Rectangle(13, 180, 231, 23));
-		}
-		return gitRadioButton;
-	}
-
-
-	/**
-	 * This method initializes jComboBox	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	public JComboBox getGitComboBox() {
-		if (gitTagSelect == null) {
-			gitTagSelect = new JComboBox();
-			gitTagSelect.setBounds(new Rectangle(16, 205, 421, 24));
-			gitTagSelect.setEnabled(false);
-		}
-		return gitTagSelect;
-	}
 
 
 	

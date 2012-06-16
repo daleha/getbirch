@@ -53,8 +53,8 @@ public class Main {
 //		memCheck();
 
 
-//		platform = detect_platform();
-//		version = detect_version();
+		platform = detect_platform();
+		version = detect_version();
 
 		Wizard wizard = new Wizard();
 		wizard.getDialog().setTitle("Getbirch BIRCH Install Wizard");
@@ -70,8 +70,8 @@ public class Main {
 		WizardPanelDescriptor descriptor2 = new AdvancedPanelDescriptor();
 		wizard.registerWizardPanel(AdvancedPanelDescriptor.IDENTIFIER,
 				descriptor2);
-		//((AdvancedPanelDescriptor) descriptor2).setPlatform(platform);
-		//((AdvancedPanelDescriptor) descriptor2).setVersion(version);
+		((AdvancedPanelDescriptor) descriptor2).setPlatform(platform);
+		((AdvancedPanelDescriptor) descriptor2).setVersion(version);
 
 		wizard.setCurrentPanel(StartPanelDescriptor.IDENTIFIER);
 /*		if (isDiscInstall) {
@@ -83,15 +83,13 @@ public class Main {
 
 		int ret = wizard.showModalDialog();
 
-/*
-		System.out
-				.println("Dialog return code is (0=Finish,1=Cancel,2=Error): "
-						+ ret);
+		System.out.println("Dialog return code is (0=Finish,1=Cancel,2=Error): "+ ret);
 
 		if (ret == 1) {
 			System.exit(0);
 		}
 
+/*
 		if (((InstallTypePanel) descriptor1.getPanelComponent())
 				.isDefaultSelected()) {
 			System.out.println("Proceeding with default install");
@@ -99,25 +97,18 @@ public class Main {
 			System.out.println("An advanced install was selected");
 		}
 
-		install = ((StartPanel) descriptor.getPanelComponent())
-				.isDefaultSelected();
+		install = ((StartPanel) descriptor.getPanelComponent()).isDefaultSelected();
 		if (install) {
-			installDir = ((AdvancedPanel) descriptor2.getPanelComponent())
-					.getInstallDir();
+			installDir = ((AdvancedPanel) descriptor2.getPanelComponent()).getInstallDir();
 		} else {
-			installDir = ((StartPanel) descriptor.getPanelComponent())
-					.getUpdateDir();
+			installDir = ((StartPanel) descriptor.getPanelComponent()).getUpdateDir();
 		}
 
-		createBackup = ((StartPanel) descriptor.getPanelComponent())
-				.makeBackup();
-		frameType = ((AdvancedPanel) descriptor2.getPanelComponent())
-				.getFrameworkVersion();
-		binaries = ((AdvancedPanel) descriptor2.getPanelComponent())
-				.getBinariesSelected();
+		createBackup = ((StartPanel) descriptor.getPanelComponent()).makeBackup();
+		frameType = ((AdvancedPanel) descriptor2.getPanelComponent()).getFrameworkVersion();
+		binaries = ((AdvancedPanel) descriptor2.getPanelComponent()).getBinariesSelected();
 		logDir = ((AdvancedPanel) descriptor2.getPanelComponent()).getLogDir();
-		boolean devel = ((AdvancedPanel) descriptor2.getPanelComponent())
-				.isDevelopment();
+		boolean devel = ((AdvancedPanel) descriptor2.getPanelComponent()).isDevelopment();
 		
 		
 		if (install)
@@ -168,7 +159,6 @@ public class Main {
 	}
     */
 
-/*
 	private static String detect_platform() {
 		String platform;
 		String path;
@@ -178,10 +168,10 @@ public class Main {
 
 		new File(path).mkdir();
 
-		interp.exec("import Globals");
+		interp.exec("import detect");
 		interp.set("temp_dir", new PyString(path));
 
-		interp.exec("txt = Globals.detect_platform(temp_dir)");
+		interp.exec("txt = detect.detect_platform(temp_dir)");
 		PyObject result = interp.get("txt");
 
 		platform = result.toString();
@@ -189,13 +179,12 @@ public class Main {
 		return platform;
 
 	}
-    */
-/*
+
 	private static String detect_version() {
 		String version;
 
-		interp.exec("import Globals");
-		interp.exec("version = Globals.get_version()");
+		interp.exec("import detect");
+		interp.exec("version = detect.detect_latest_version()");
 		PyObject result = interp.get("version");
 
 		version = result.toString();
@@ -203,7 +192,7 @@ public class Main {
 		return version;
 
 	}
-*/
+
 	private static void startPhase1(
 			boolean install, String installDir,
 			String logDir, String frameType, ArrayList<String> binaries,
@@ -272,7 +261,7 @@ public class Main {
     */
 }
 
-
+/*
 	public static void runCommand(String command) {
 		Runtime rt;
 		Process p;
@@ -306,5 +295,7 @@ public class Main {
 		}
 
 	}
+
+    */
 
 }

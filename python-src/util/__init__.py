@@ -7,34 +7,18 @@ import shutil
 import os
 import sys
 
-
 import traceback
+from log import *
 
-import javax.swing.JOptionPane as JOptionPane
+from Globals import CONSOLE
+
+#import javax.swing.JOptionPane as JOptionPane
 
 
 
 """
 A wrapper function to print a label for a log section.
 """
-def print_label(label):
-	rad=20
-	string=rad*"*"+label+":"+rad*"*"
-	print_console(string)	
-
-
-def print_console(line):
-	if line==None:
-		return
-	line=line.strip().replace("//","/")
-	line=PROGRAM+" "+line
-	CONSOLE.writeLine(line)
-	
-	if (line!="" and ARGS!=None and ARGS.install_log!=None):
-		ARGS.install_log.write(line+"\n")
-		ARGS.install_log.flush()
-	print(line)
-
 	
 """
 Fetches a file from the specified "url", saving it as "name".
@@ -81,14 +65,14 @@ def untar(file, path=".",noroot=False,exclude=list()):
 
 
 		tarball = tarfile.open(file)
-		print_console("Calculating tar info, this may take some time")
-		info=tarball.getmembers()
+		info("Calculating tar info, this may take some time")
+		tarInfo=tarball.getmembers()
 
-		total=len(info)
+		total=len(tarInfo)
 		count=0
 		CONSOLE.setProgress(0)
-		print_console("Beginning the extraction process")
-		for each in info:
+		info("Beginning the extraction process")
+		for each in tarInfo:
 			if (not each.name in exclude):
 				count=count+1
 				percent=int((float(count)/total)*100)	
@@ -97,18 +81,18 @@ def untar(file, path=".",noroot=False,exclude=list()):
 				tarball.extractall(members=item)
 				CONSOLE.setProgress(percent)
 			else:
-				print_console("Excluded member "+each.name)
+				info("Excluded member "+each.name)
 
 		if (noroot==True):
-			if (info[0].name.find("pax_global_header")>=0):
-				print_console("Trimming global header")
-				info.pop(0)
-			rootpath=info.pop(0)
-			print_console("Using "+rootpath.name+" as root tar dir.")
+			if (tarInfo[0].name.find("pax_global_header")>=0):
+				info("Trimming global header")
+				tarInfo.pop(0)
+			rootpath=tarInfo.pop(0)
+			info("Using "+rootpath.name+" as root tar dir.")
 
 			contents=os.listdir(rootpath.name)
 			for each in contents:
-				print_console("Moving "+each+" to rebased root path.")
+				info("Moving "+each+" to rebased root path.")
 				shutil.move(rootpath.name+"/"+each,os.getcwd()+"/"+each)
 
 			shutil.rmtree(rootpath.name)
@@ -146,18 +130,12 @@ def quote_dos_path(path):
 
 
 def shutdown():
-	print_console("Shutting down")
-	try:	
-		cleanup()
-	except Exception, err:
-		print_console(err.message)
-		err=traceback.format_exc()
-		print_console(err)
+	info("Shutting down")
+#	try:	
+#		cleanup()
+#	except Exception, err:
+#		print_console(err.message)
+#		err=traceback.format_exc()
+#		print_console(err)
 	CONSOLE.shutdown()
 	
-
-
-from Globals import CONSOLE
-from Globals import ARGS
-from Globals import PROGRAM
-

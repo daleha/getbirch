@@ -12,8 +12,6 @@ class Arguments:
 	MINI_URL = BASE_URL+"minibirch/framework.mini_$TYPE.tar.gz"
 	BIN_URL = BASE_URL+"CURRENT/bin-$PLATFORM_$TYPE.tar.gz" 
 	VERSION_URL=BASE_URL+"CURRENT/VERSION"
-	GITDEV_URL="http://git.cc.umanitoba.ca/git/?"
-	GITDEV_HASHMAP={"p":HEAD_PROJECT,"a":"snapshot","h":"#SHA","sf":"tgz"}
 	NEWEST_VERSION=None
 	
 	instance =None

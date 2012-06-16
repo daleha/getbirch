@@ -328,7 +328,8 @@ public class StartPanel extends JPanel{
 		if (jTextField == null) {
 			jTextField = new JTextField();
 			jTextField.setBounds(new Rectangle(103, 145, 273, 24));
-			jTextField.setText("Enter BIRCH Administrator's email");
+			//jTextField.setText("Enter BIRCH Administrator's email");
+			jTextField.setText("admin@localhost.localdomain");
 		}
 		return jTextField;
 	}
