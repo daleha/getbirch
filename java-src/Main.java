@@ -24,6 +24,7 @@ import JarHandler.Fetcher;
 import org.python.core.PyException;
 import org.python.core.PyList;
 import org.python.core.PyTuple;
+import org.python.core.PyBoolean;
 import org.python.core.PyObject;
 import org.python.core.PyString;
 import org.python.core.PyInteger;
@@ -89,9 +90,7 @@ public class Main {
 			System.exit(0);
 		}
 
-/*
-		if (((InstallTypePanel) descriptor1.getPanelComponent())
-				.isDefaultSelected()) {
+		if (((InstallTypePanel) descriptor1.getPanelComponent()).isDefaultSelected()) {
 			System.out.println("Proceeding with default install");
 		} else {
 			System.out.println("An advanced install was selected");
@@ -104,10 +103,10 @@ public class Main {
 			installDir = ((StartPanel) descriptor.getPanelComponent()).getUpdateDir();
 		}
 
-		createBackup = ((StartPanel) descriptor.getPanelComponent()).makeBackup();
+		//createBackup = ((StartPanel) descriptor.getPanelComponent()).makeBackup();
 		frameType = ((AdvancedPanel) descriptor2.getPanelComponent()).getFrameworkVersion();
 		binaries = ((AdvancedPanel) descriptor2.getPanelComponent()).getBinariesSelected();
-		logDir = ((AdvancedPanel) descriptor2.getPanelComponent()).getLogDir();
+	//	logDir = ((AdvancedPanel) descriptor2.getPanelComponent()).getLogDir();
 		boolean devel = ((AdvancedPanel) descriptor2.getPanelComponent()).isDevelopment();
 		
 		
@@ -117,10 +116,9 @@ public class Main {
 			adminEmail="";
 		
 		
-		startPhase1(install, installDir, logDir, frameType, binaries, devel,adminEmail);
+		startPhase1(install, installDir, frameType, binaries, devel,adminEmail);
 
 		System.exit(0);
-*/
 	}
 /*
 	private static boolean is_disc_install() {
@@ -193,72 +191,56 @@ public class Main {
 
 	}
 
-	private static void startPhase1(
-			boolean install, String installDir,
-			String logDir, String frameType, ArrayList<String> binaries,
-			boolean devel, String adminEmail
-			) 
+	private static void startPhase1( boolean install, String installDir, String frameType, ArrayList<String> binaries, boolean devel, String adminEmail ) 
 	{
 		PythonInterpreter interp = new PythonInterpreter();
 
 
-    /*
 		// set local parameters
 
 		interp.exec("import getbirch");
-		interp.exec("import Globals");
 		interp.exec("import sys");
 
 		interp.set("MAX_RECURSION_DEPTH", new PyInteger(MAX_RECURSION_DEPTH));
 		interp.exec("sys.setrecursionlimit(MAX_RECURSION_DEPTH)");
+
 		interp.set("installDir", new PyString(installDir));
 
-		interp.set("jythonpath", new PyString(jythonPath));
-		interp.exec("Globals.set_jython_path(jythonpath)");
+//		if (isDiscInstall) {
+//
+//			interp.set("top_dir", new PyString(JarUtil.getPath()));
+//			interp.exec("Globals.set_disc_install(top_dir)");
+//		}
 
-		if (isDiscInstall) {
-
-			interp.set("top_dir", new PyString(JarUtil.getPath()));
-			interp.exec("Globals.set_disc_install(top_dir)");
-		}
-
-		if (devel) {
-			interp.exec("Globals.set_development()");
-
-		}
+        interp.set("is_development", new PyBoolean(devel));
 
 
-		if (!install) {
-			interp.exec("Globals.set_update()");
-		}
+        interp.set("is_update", new PyBoolean(!install));
 
-		if (logDir != null) {
-			interp.set("logDir", new PyString(logDir));
-			interp.exec("Globals.set_log_dir(logDir)");
-		}
+	//	if (logDir != null) {
+	//		interp.set("logDir", new PyString(logDir));
+	//		interp.exec("Globals.set_log_dir(logDir)");
+	//	}
 
-		if (frameType != "") {
-			interp.set("frameType", new PyString(frameType));
-			interp.exec("Globals.set_frame_type(frameType)");
-		}
+	//	if (frameType != "") {
+	//		interp.set("frameType", new PyString(frameType));
+	//		interp.exec("Globals.set_frame_type(frameType)");
+	//	}
 		
-		if (adminEmail != null) {
-			interp.set("adminEmail", new PyString(adminEmail));
-			interp.exec("Globals.set_admin_email(adminEmail)");
-		}
+	//	if (adminEmail != null) {
+	//		interp.set("adminEmail", new PyString(adminEmail));
+	//		interp.exec("Globals.set_admin_email(adminEmail)");
+	//	}
 
 		if (binaries.size() != 0) {
 			interp.set("binaries", new PyList(binaries));
-			interp.exec("Globals.set_binaries(binaries)");
 		}
 
-		if (createBackup) {
-			interp.exec("Globals.set_make_backup()");
-		}
+		//if (createBackup) {
+		//	interp.exec("Globals.set_make_backup()");
+		//}
+		interp.exec("getbirch.main(installDir, is_update, is_development, binaries )");
 
-		interp.exec("getbirch.main(installDir)");
-
-    */
 }
 
 /*

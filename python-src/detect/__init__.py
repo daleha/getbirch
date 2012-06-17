@@ -28,6 +28,7 @@ def detect_latest_version():
 
     
 def detect_platform(temp_dir):
+    cwd = os.getcwd()
     fetcher = Fetcher()
     os.chdir(temp_dir)
     path= fetcher.getResource("resources/probes.tar.gz", temp_dir+"/probes.tar.gz")
@@ -39,7 +40,7 @@ def detect_platform(temp_dir):
     info("Detected platform as: "+platform)
     shutil.rmtree(temp_dir,ignore_errors=True)
 
-
+    os.chdir(cwd)
     
     return platform 
 

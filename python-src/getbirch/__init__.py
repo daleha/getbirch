@@ -38,20 +38,24 @@ from setup import *
 def main( installDir, isUpdate, is_development, platforms ):
     info("Running getbirch installer process")
 
-    if ( os.path.lexists(installDir) ):
-        info('Fetching archives')
-        os.chdir(installDir)
-        get_framework(installDir, is_development)
-        get_binaries(installDir, is_development, platforms)
+    if (not os.path.lexists(installDir)):
+        os.mkdir(installDir)
+
+    if (check_depends()):
+        if ( os.path.lexists(installDir) ):
+            info('Fetching archives')
+            os.chdir(installDir)
+            get_framework(installDir, is_development)
+            get_binaries(installDir, is_development, platforms)
 
 
-    if (not isUpdate):
+        if (not isUpdate):
+            
+            clobber_check(installDir)
+            extract_tarballs(installDir, platforms)
+            #install()
         
-        clobber_check(installDir)
-        extract_tarballs(installDir, platforms)
-        #install()
-    
-        
+            
 #       if (ARGS.disc_install):
 #           disc_prepare()
 #           fetch = False
@@ -59,9 +63,10 @@ def main( installDir, isUpdate, is_development, platforms ):
 
 
 
-    else:
+        else:
+            pass
 #call update
-        #update()
+            #update()
     
     shutdown()
 
