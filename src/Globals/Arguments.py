@@ -7,7 +7,7 @@ class Arguments:
 	DOMAIN="http://birchlabs.dyndns-server.com"#The domain of the BIRCH gitweb server, note that there must be an apache alias to the directory containing the git repository, so that we can grab the head reference
 
 	HEAD_PROJECT="birchdev.git"
-	BASE_URL="http://www.umanitoba.ca/faculties/afs/plant_science/psgendb/FTP/BIRCH/"
+	BASE_URL="ftp://ftp.cc.umanitoba.ca/psgendb/BIRCH/"
 	FRAMEWORK_URL = BASE_URL+"CURRENT/framework_$TYPE.tar.gz"
 	MINI_URL = BASE_URL+"minibirch/framework.mini_$TYPE.tar.gz"
 	BIN_URL = BASE_URL+"CURRENT/bin-$PLATFORM_$TYPE.tar.gz" 
